@@ -1,18 +1,21 @@
 import { Button } from '../../components/UI/Button';
 import { getAppData } from '../../utils/getAppData';
-import { CustomTable } from '../../components/CustomTable';
 import { useState } from 'react';
 import { ICharacter } from '../../interfaces/ICharacter';
 import styles from './AppContent.module.scss';
+import { TableDecorator } from '../HOC/TableDecorator';
+import { INumberedTableRow } from '../../interfaces/INumberedTableRow';
+
+type ICharacterRow = ICharacter & INumberedTableRow;
 
 export function AppContent() {
-    const [tableData, setTableData] = useState<Array<ICharacter>>([]);
+    const [tableData, setTableData] = useState<Array<ICharacterRow>>([]);
 
     return (
         <section className={styles['app-content']}>
             <div className={styles['app-content__wrapper']}>
                 <h1>Персонажи "Звёздных войн"</h1>
-                <CustomTable
+                <TableDecorator
                     headers={[
                         { text: 'Имя', fieldName: 'name' },
                         { text: 'Пол', fieldName: 'gender' },

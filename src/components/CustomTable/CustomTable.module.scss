@@ -1,24 +1,45 @@
+@import '../../styles/mixins.scss';
+
 .custom-table {
     border-collapse: collapse;
 
     th {
         position: relative;
-        padding: 10px 20px;
         color: #fff;
         background: #2e77ff;
+        font-weight: 600;
+
+        &:nth-child(2n) {
+            background: #4e8cff;
+        }
+
+        &.sorted-asc::after {
+            @include order-sort-icon("▲");
+        }
+
+        &.sorted-desc::after {
+            @include order-sort-icon("▼");
+        }
+
+        button {
+            width: 100%;
+            padding: 10px 20px;
+            border: none;
+            background: inherit;
+        }
     }
 
     td {
         padding: 15px;
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
 
     th,
     td {
+        max-width: 200px;
         text-align: center;
         vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &--filled {
