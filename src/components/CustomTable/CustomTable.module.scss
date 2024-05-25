@@ -1,0 +1,39 @@
+.custom-table {
+    border-collapse: collapse;
+
+    th {
+        position: relative;
+        padding: 10px 20px;
+        color: #fff;
+        background: #2e77ff;
+    }
+
+    td {
+        padding: 15px;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    th,
+    td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    &--filled {
+        tr {
+            transition: background .3s;
+
+            &:hover {
+                background: #ebebeb;
+            }
+        }
+
+        td {
+            &:not(:last-child) {
+                border-right: 1px solid #ccc;
+            }
+        }
+    }
+}

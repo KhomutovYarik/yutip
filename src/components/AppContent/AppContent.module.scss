@@ -1,0 +1,22 @@
+.app-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #F3F3F3;
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__footer-buttons {
+        display: flex;
+        justify-content: right;
+        gap: 10px;
+        width: 100%;
+        margin-top: 10px;
+    }
+}

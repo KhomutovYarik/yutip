@@ -1,7 +1,10 @@
-import './App.css';
+import { AppContent } from './components/AppContent';
+import './styles/globals.scss';
 
 function App() {
-    return <div className="App"></div>;
+    return (
+        <AppContent />
+    )
 }
 
 export default App;
