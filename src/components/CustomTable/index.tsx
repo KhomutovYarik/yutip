@@ -59,6 +59,7 @@ export function CustomTable<T extends object>({ headers, data, uniqueValueFieldN
                         >
                             <button
                                 onClick={() => changeSortOrder(index)}
+                                disabled={Boolean(data.length === 0)}
                             >
                                 {text}
                             </button>

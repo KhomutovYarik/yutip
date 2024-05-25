@@ -5,11 +5,13 @@ import { ICharacter } from '../../interfaces/ICharacter';
 import styles from './AppContent.module.scss';
 import { TableDecorator } from '../HOC/TableDecorator';
 import { INumberedTableRow } from '../../interfaces/INumberedTableRow';
+import { PreloaderModal } from '../PreloaderModal';
 
 type ICharacterRow = ICharacter & INumberedTableRow;
 
 export function AppContent() {
     const [tableData, setTableData] = useState<Array<ICharacterRow>>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     return (
         <section className={styles['app-content']}>
@@ -30,7 +32,7 @@ export function AppContent() {
                 <div className={styles['app-content__footer-buttons']}>
                     <Button
                         label='Загрузить данные'
-                        onClick={() => getAppData()
+                        onClick={() => getAppData(setIsLoading)
                             .then(data => setTableData(data))}
                     />
                     <Button
@@ -39,6 +41,7 @@ export function AppContent() {
                     />
                 </div>
             </div>
+            {isLoading && <PreloaderModal />}
         </section>
     )
 }

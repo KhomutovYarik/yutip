@@ -16,4 +16,8 @@ button {
     color: inherit;
     font-family: inherit;
     font-size: inherit;
+
+    &:disabled {
+        cursor: default;
+    }
 }

@@ -5,12 +5,12 @@
 
     th {
         position: relative;
-        color: #fff;
-        background: #2e77ff;
+        color: #FFF;
+        background: #2E77FF;
         font-weight: 600;
 
         &:nth-child(2n) {
-            background: #4e8cff;
+            background: #4E8CFF;
         }
 
         &.sorted-asc::after {
@@ -47,7 +47,7 @@
             transition: background .3s;
 
             &:hover {
-                background: #ebebeb;
+                background: #EBEBEB;
             }
         }
 
