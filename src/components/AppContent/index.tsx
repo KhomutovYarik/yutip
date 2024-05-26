@@ -1,47 +1,47 @@
 import { Button } from '../../components/UI/Button';
-import { getAppData } from '../../utils/getAppData';
-import { useState } from 'react';
-import { ICharacter } from '../../interfaces/ICharacter';
 import styles from './AppContent.module.scss';
-import { TableDecorator } from '../HOC/TableDecorator';
-import { INumberedTableRow } from '../../interfaces/INumberedTableRow';
 import { PreloaderModal } from '../PreloaderModal';
+import { appStore } from '../../stores/appStore';
+import { observer } from 'mobx-react-lite';
+import { CustomTable } from '../CustomTable';
 
-type ICharacterRow = ICharacter & INumberedTableRow;
+const rowsCount = 10;
+const columnsCount = 5;
 
-export function AppContent() {
-    const [tableData, setTableData] = useState<Array<ICharacterRow>>([]);
-    const [isLoading, setIsLoading] = useState(false);
+export const AppContent = observer(() => {
+    const {
+        tableData,
+        tableHeaders,
+        isLoading,
+        getTableData,
+        clearTableData
+    } = appStore;
+
+    /*     console.log(tableData) */
 
     return (
         <section className={styles['app-content']}>
             <div className={styles['app-content__wrapper']}>
                 <h1>Персонажи "Звёздных войн"</h1>
-                <TableDecorator
-                    headers={[
-                        { text: 'Имя', fieldName: 'name' },
-                        { text: 'Пол', fieldName: 'gender' },
-                        { text: 'Год рождения', fieldName: 'birth_year' },
-                        { text: 'Рост', fieldName: 'height' }
-                    ]}
+                <CustomTable
+                    headers={tableHeaders}
                     data={tableData}
                     uniqueValueFieldName='url'
-                    rowsCount={10}
-                    columnsCount={5}
+                    rowsCount={rowsCount}
+                    columnsCount={columnsCount}
                 />
                 <div className={styles['app-content__footer-buttons']}>
                     <Button
                         label='Загрузить данные'
-                        onClick={() => getAppData(setIsLoading)
-                            .then(data => setTableData(data))}
+                        onClick={() => getTableData()}
                     />
                     <Button
                         label='Очистить данные'
-                        onClick={() => setTableData([])}
+                        onClick={() => clearTableData()}
                     />
                 </div>
             </div>
             {isLoading && <PreloaderModal />}
         </section>
     )
-}
+})
