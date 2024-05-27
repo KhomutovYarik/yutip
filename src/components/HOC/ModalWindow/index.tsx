@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import styles from './ModalWindow.module.scss';
 
-interface IModalWindowProps {
+export interface IModalWindowProps {
     children: ReactNode;
 }
 

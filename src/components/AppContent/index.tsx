@@ -1,6 +1,6 @@
 import { Button } from '../../components/UI/Button';
 import styles from './AppContent.module.scss';
-import { PreloaderModal } from '../PreloaderModal';
+import { PreloaderModal } from '../Modals/PreloaderModal';
 import { appStore } from '../../stores/appStore';
 import { observer } from 'mobx-react-lite';
 import { CustomTable } from '../CustomTable';

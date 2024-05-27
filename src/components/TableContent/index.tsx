@@ -4,6 +4,8 @@ import { INumberedTableRow } from "../../interfaces/INumberedTableRow";
 import { appStore } from '../../stores/appStore';
 import { Button } from '../UI/Button';
 import styles from './TableContent.module.scss';
+import { useState } from 'react';
+import { ConfirmModal } from '../Modals/ConfirmModal';
 
 interface ITableContentProps<T extends INumberedTableRow> {
     headers: ICustomTableHeader<T>[];
@@ -13,6 +15,8 @@ interface ITableContentProps<T extends INumberedTableRow> {
 
 export const TableContent = observer(<T extends INumberedTableRow>({ headers, data, uniqueValueFieldName }: ITableContentProps<T>) => {
     const { removeElement } = appStore;
+    const [isModalOpened, setIsModalOpened] = useState(false);
+    const [removableIndex, setRemovableIndex] = useState<number | null>(null);
 
     return (
         <>
@@ -29,13 +33,22 @@ export const TableContent = observer(<T extends INumberedTableRow>({ headers, da
                     }
                     <td>
                         <Button
-                            onClick={() => removeElement(index)}
+                            onClick={() => {
+                                setIsModalOpened(true);
+                                setRemovableIndex(index);
+                            }}
                             className={styles['remove-row-button']}
                             label='Удалить'
                         />
                     </td>
                 </tr>
             )}
+            {isModalOpened &&
+                <ConfirmModal
+                    label='Удалить элемент?'
+                    confirmAction={() => removeElement(Number(removableIndex))}
+                    closeModal={() => setIsModalOpened(false)}
+                />}
         </>
     )
 })

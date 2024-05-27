@@ -1,5 +1,5 @@
 import styles from './Preloader.module.scss';
-import { ModalWindow } from "../HOC/ModalWindow";
+import { ModalWindow } from "../../HOC/ModalWindow";
 
 export function PreloaderModal() {
     return (
