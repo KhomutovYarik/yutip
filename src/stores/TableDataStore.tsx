@@ -1,9 +1,10 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { autorun, makeAutoObservable, runInAction } from "mobx";
 import { ICustomTableHeader } from "../interfaces/ICustomTableHeader";
 import { INumberedTableRow } from "../interfaces/INumberedTableRow";
 import { SortOrder } from "../enums/SortOrder";
 
 const numberedFieldName = 'orderNum';
+const localStorageKeyName = 'applicationState';
 
 class TableDataStore<T extends INumberedTableRow> {
     rowsCount: number;
@@ -16,10 +17,26 @@ class TableDataStore<T extends INumberedTableRow> {
 
     constructor(headers: ICustomTableHeader<T>[], rowsCount: number = 10, columnsCount: number = 5) {
         makeAutoObservable(this);
-        this.tableHeaders = headers;
         this.rowsCount = rowsCount;
         this.columnsCount = columnsCount;
-        this.decorateTableHeaders();
+
+        const stateFromLocalStorage = window.localStorage.getItem(localStorageKeyName);
+
+        if (stateFromLocalStorage) {
+            const stateObject = JSON.parse(stateFromLocalStorage);
+            this.tableHeaders = stateObject.headers;
+            this.tableData = stateObject.data;
+            this.sortOrder = stateObject.sortOrder;
+            this.sortIndex = stateObject.sortIndex;
+
+        } else {
+            this.tableHeaders = headers;
+            this.decorateTableHeaders();
+        }
+
+        autorun(() => {
+            this.saveStateToLocalStorage();
+        })
     }
 
     getTableData = async () => {
@@ -68,6 +85,10 @@ class TableDataStore<T extends INumberedTableRow> {
         });
     }
 
+    removeElement = (elementIndex: number) => {
+        this.tableData = this.tableData.filter((_, index) => index !== elementIndex);
+    }
+
     private decorateTableHeaders = () => {
         const numberedHeader: ICustomTableHeader<INumberedTableRow> = { text: '№', fieldName: numberedFieldName };
 
@@ -82,6 +103,15 @@ class TableDataStore<T extends INumberedTableRow> {
         slicedData.forEach((element, index) => element[numberedFieldName] = index + 1);
 
         this.tableData = slicedData;
+    }
+
+    private saveStateToLocalStorage = () => {
+        window.localStorage.setItem(localStorageKeyName, JSON.stringify({
+            headers: this.tableHeaders,
+            data: this.tableData,
+            sortOrder: this.sortOrder,
+            sortIndex: this.sortIndex
+        }));
     }
 }
 

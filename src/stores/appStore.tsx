@@ -1,3 +1,4 @@
+import { autorun } from "mobx";
 import { ICharacter } from "../interfaces/ICharacter";
 import { INumberedTableRow } from "../interfaces/INumberedTableRow";
 import TableDataStore from "./TableDataStore";

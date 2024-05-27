@@ -1,4 +1,9 @@
-export function getEmptyTable(rowsCount: number, columnsCount: number) {
+interface IEmptyTableContent {
+    rowsCount: number;
+    columnsCount: number;
+}
+
+export function EmptyTableContent({ rowsCount, columnsCount }: IEmptyTableContent) {
     if (rowsCount < 1 || columnsCount < 1) {
         return <></>
     }
@@ -23,5 +28,9 @@ export function getEmptyTable(rowsCount: number, columnsCount: number) {
         );
     }
 
-    return emptyTableRows;
+    return (
+        <>
+            {emptyTableRows}
+        </>
+    )
 }

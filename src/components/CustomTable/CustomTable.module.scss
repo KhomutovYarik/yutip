@@ -44,16 +44,32 @@
 
     &--filled {
         tr {
+            position: relative;
             transition: background .3s;
 
             &:hover {
                 background: #EBEBEB;
+
+                td:last-child {
+                    display: block;
+                }
             }
         }
 
         td {
             &:not(:last-child) {
                 border-right: 1px solid #ccc;
+            }
+
+            &:last-child {
+                display: none;
+                position: absolute;
+                top: 50%;
+                right: 5px;
+                transform: translate(0%, -50%);
+                padding: 0;
+
+                transition: opacity 1s;
             }
         }
     }

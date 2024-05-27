@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import { ICustomTableHeader } from '../../interfaces/ICustomTableHeader';
-import { getEmptyTable } from '../../utils/getEmptyTable';
-import { getFilledTable } from '../../utils/getFilledTable';
 import styles from './CustomTable.module.scss';
 import { SortOrder } from '../../enums/SortOrder';
 import { INumberedTableRow } from '../../interfaces/INumberedTableRow';
 import { appStore } from '../../stores/appStore';
+import { TableContent } from '../TableContent';
+import { EmptyTableContent } from '../EmptyTableContent';
 
 export interface ICustomTableProps<T extends INumberedTableRow> {
     data: T[];
@@ -16,7 +16,7 @@ export interface ICustomTableProps<T extends INumberedTableRow> {
     columnsCount: number;
 }
 
-export const CustomTable = observer(<T extends object>({ headers, data, uniqueValueFieldName, rowsCount, columnsCount }: ICustomTableProps<T>) => {
+export const CustomTable = observer(<T extends INumberedTableRow>({ headers, data, uniqueValueFieldName, rowsCount, columnsCount }: ICustomTableProps<T>) => {
     const { sortOrder, sortIndex, sortArray } = appStore;
 
     const sortClassName = data.length > 0 && (sortOrder === SortOrder.ASCENDING ? styles['sorted-asc'] : styles['sorted-desc']);
@@ -42,8 +42,8 @@ export const CustomTable = observer(<T extends object>({ headers, data, uniqueVa
             </thead>
             <tbody>
                 {data.length > 0 ?
-                    getFilledTable(headers, data, uniqueValueFieldName) :
-                    getEmptyTable(rowsCount, columnsCount)
+                    <TableContent headers={headers} data={data} uniqueValueFieldName={uniqueValueFieldName} /> :
+                    <EmptyTableContent rowsCount={rowsCount} columnsCount={columnsCount} />
                 }
             </tbody>
         </table>
