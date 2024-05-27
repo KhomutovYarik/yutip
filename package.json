@@ -1,6 +1,7 @@
 {
     "name": "test-yutip",
     "version": "0.1.0",
+    "homepage": "https://github.com/KhomutovYarik/yutip.git",
     "private": true,
     "dependencies": {
         "@types/node": "^16.18.97",

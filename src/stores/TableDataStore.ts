@@ -2,6 +2,7 @@ import { autorun, makeAutoObservable, runInAction } from "mobx";
 import { ICustomTableHeader } from "../interfaces/ICustomTableHeader";
 import { INumberedTableRow } from "../interfaces/INumberedTableRow";
 import { SortOrder } from "../enums/SortOrder";
+import { ISWapiResponse } from "../interfaces/ISWapiResponse";
 
 const numberedFieldName = 'orderNum';
 const localStorageKeyName = 'applicationState';
@@ -13,7 +14,10 @@ class TableDataStore<T extends INumberedTableRow> {
     tableData: T[] = [];
     sortOrder = SortOrder.ASCENDING;
     sortIndex = 0;
+    currentPage: number = 1;
+    totalPages: number = 1;
     isLoading = false;
+
 
     constructor(headers: ICustomTableHeader<T>[], rowsCount: number = 10, columnsCount: number = 5) {
         makeAutoObservable(this);
@@ -28,6 +32,8 @@ class TableDataStore<T extends INumberedTableRow> {
             this.tableData = stateObject.data;
             this.sortOrder = stateObject.sortOrder;
             this.sortIndex = stateObject.sortIndex;
+            this.currentPage = stateObject.currentPage;
+            this.totalPages = stateObject.totalPages;
 
         } else {
             this.tableHeaders = headers;
@@ -39,15 +45,17 @@ class TableDataStore<T extends INumberedTableRow> {
         })
     }
 
-    getTableData = async () => {
+    getTableData = async (pageNumber: number = 1) => {
         try {
             this.isLoading = true;
 
-            const response = await fetch('https://swapi.dev/api/people/');
-            const parsedJson = await response.json();
+            const response = await fetch(`https://swapi.dev/api/people/?page=${pageNumber}`);
+            const parsedJson: ISWapiResponse<T> = await response.json();
 
             runInAction(() => {
                 this.tableData = parsedJson.results;
+                this.currentPage = pageNumber;
+                this.totalPages = Math.ceil(parsedJson.count / this.rowsCount);
                 this.decorateTableData();
                 this.isLoading = false;
             })
@@ -58,6 +66,8 @@ class TableDataStore<T extends INumberedTableRow> {
 
     clearTableData = () => {
         this.tableData = [];
+        this.totalPages = 1;
+        this.currentPage = 1;
     }
 
     sortArray = (sortIndex: number) => {
@@ -100,7 +110,7 @@ class TableDataStore<T extends INumberedTableRow> {
 
     private decorateTableData = () => {
         const slicedData = this.tableData.slice(0, this.rowsCount);
-        slicedData.forEach((element, index) => element[numberedFieldName] = index + 1);
+        slicedData.forEach((element, index) => element[numberedFieldName] = index + 1 + (this.currentPage - 1) * this.rowsCount);
 
         this.tableData = slicedData;
     }
@@ -110,7 +120,9 @@ class TableDataStore<T extends INumberedTableRow> {
             headers: this.tableHeaders,
             data: this.tableData,
             sortOrder: this.sortOrder,
-            sortIndex: this.sortIndex
+            sortIndex: this.sortIndex,
+            currentPage: this.currentPage,
+            totalPages: this.totalPages
         }));
     }
 }
