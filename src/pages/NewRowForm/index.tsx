@@ -37,29 +37,31 @@ export const NewRowForm = observer(() => {
     }
 
     return (
-        <div className={styles['page-wrapper']}>
-            <div className={styles['page-content']}>
-                <Link to='/'>← Назад</Link>
-                <form className={styles['new-row-form']}
-                    onSubmit={handleSubmit}
-                >
-                    <h1 className={styles['title']}>Добавление новой записи</h1>
-                    <Input label='Имя:' name='name' required />
-                    <Input label='Пол:' name='gender' required />
-                    <Input label='Год рождения:' name='birth_year' required />
-                    <Input label='Рост:' name='height' type='number' required />
-                    <Button type='submit'
-                        label='Добавить запись'
-                        className={styles['submit-button']}
-                    />
-                    {isSuccessModalOpened &&
-                        <SuccessModal
-                            successText='Запись была успешно добавлена'
-                            buttonLabel='Перейти к таблице'
-                            href='/'
+        <div className='container'>
+            <div className={styles['page-wrapper']}>
+                <div className={styles['page-content']}>
+                    <Link to='/'>← Назад</Link>
+                    <form className={styles['new-row-form']}
+                        onSubmit={handleSubmit}
+                    >
+                        <h1 className={styles['title']}>Добавление новой записи</h1>
+                        <Input label='Имя:' name='name' required />
+                        <Input label='Пол:' name='gender' required />
+                        <Input label='Год рождения:' name='birth_year' required />
+                        <Input label='Рост:' name='height' type='number' required />
+                        <Button type='submit'
+                            label='Добавить запись'
+                            className={styles['submit-button']}
                         />
-                    }
-                </form>
+                        {isSuccessModalOpened &&
+                            <SuccessModal
+                                successText='Запись была успешно добавлена'
+                                buttonLabel='Перейти к таблице'
+                                href='/'
+                            />
+                        }
+                    </form>
+                </div>
             </div>
         </div>
     )

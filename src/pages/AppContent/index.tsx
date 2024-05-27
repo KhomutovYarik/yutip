@@ -20,35 +20,37 @@ export const AppContent = observer(() => {
 
     return (
         <section className={styles['app-content']}>
-            <div className={styles['wrapper']}>
-                <h1>Персонажи "Звёздных войн"</h1>
-                <div className={styles['table-with-pagination']}>
-                    <CustomTable
-                        headers={tableHeaders}
-                        data={tableData}
-                        uniqueValueFieldName='url'
-                        rowsCount={Number(process.env.REACT_APP_ROWS_COUNT)}
-                        columnsCount={Number(process.env.REACT_APP_COLUMNS_COUNT)}
-                    />
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                    />
-                </div>
-                <div className={styles['footer-buttons']}>
-                    <Link to='/add-row'>
-                        <Button
-                            label='Добавить запись'
+            <div className='container'>
+                <div className={styles['wrapper']}>
+                    <h1 className={styles['title']}>Персонажи "Звёздных войн"</h1>
+                    <div className={styles['table-with-pagination']}>
+                        <CustomTable
+                            headers={tableHeaders}
+                            data={tableData}
+                            uniqueValueFieldName='url'
+                            rowsCount={Number(process.env.REACT_APP_ROWS_COUNT)}
+                            columnsCount={Number(process.env.REACT_APP_COLUMNS_COUNT)}
                         />
-                    </Link>
-                    <Button
-                        label='Загрузить данные'
-                        onClick={() => getTableData()}
-                    />
-                    <Button
-                        label='Очистить данные'
-                        onClick={() => clearTableData()}
-                    />
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                        />
+                    </div>
+                    <div className={styles['footer-buttons']}>
+                        <Link to='/add-row'>
+                            <Button
+                                label='Добавить запись'
+                            />
+                        </Link>
+                        <Button
+                            label='Загрузить данные'
+                            onClick={() => getTableData()}
+                        />
+                        <Button
+                            label='Очистить данные'
+                            onClick={() => clearTableData()}
+                        />
+                    </div>
                 </div>
             </div>
             {isLoading && <PreloaderModal />}

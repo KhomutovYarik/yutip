@@ -22,30 +22,32 @@ export const CustomTable = observer(<T extends INumberedTableRow>({ headers, dat
     const sortClassName = data.length > 0 && (sortOrder === SortOrder.ASCENDING ? styles['sorted-asc'] : styles['sorted-desc']);
 
     return (
-        <table className={clsx(styles['custom-table'], data.length && styles['custom-table--filled'])}>
-            <thead>
-                <tr>
-                    {headers.map(({ text, fieldName }, index) =>
-                        <th
-                            key={String(fieldName)}
-                            className={clsx(sortIndex === index && sortClassName)}
-                        >
-                            <button
-                                onClick={() => sortArray(index)}
-                                disabled={Boolean(data.length === 0)}
+        <div className={styles['overflow-element']}>
+            <table className={clsx(styles['custom-table'], data.length && styles['custom-table--filled'])}>
+                <thead>
+                    <tr>
+                        {headers.map(({ text, fieldName }, index) =>
+                            <th
+                                key={String(fieldName)}
+                                className={clsx(sortIndex === index && sortClassName)}
                             >
-                                {text}
-                            </button>
-                        </th>)
+                                <button
+                                    onClick={() => sortArray(index)}
+                                    disabled={Boolean(data.length === 0)}
+                                >
+                                    {text}
+                                </button>
+                            </th>)
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.length > 0 ?
+                        <TableContent headers={headers} data={data} uniqueValueFieldName={uniqueValueFieldName} /> :
+                        <EmptyTableContent rowsCount={rowsCount} columnsCount={columnsCount} />
                     }
-                </tr>
-            </thead>
-            <tbody>
-                {data.length > 0 ?
-                    <TableContent headers={headers} data={data} uniqueValueFieldName={uniqueValueFieldName} /> :
-                    <EmptyTableContent rowsCount={rowsCount} columnsCount={columnsCount} />
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     )
 })
