@@ -1,3 +1,5 @@
+@import '../../styles/vars.scss';
+
 .app-content {
     display: flex;
     justify-content: center;
@@ -9,6 +11,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 20px;
+}
+
+.title {
+    @media (max-width: $md) {
+        font-size: 20px;
+    }
 }
 
 .table-with-pagination {
@@ -16,10 +25,12 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    width: 100%;
 }
 
 .footer-buttons {
     display: flex;
+    flex-wrap: wrap;
     justify-content: right;
     gap: 10px;
     width: 100%;
