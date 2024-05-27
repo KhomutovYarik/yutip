@@ -7,9 +7,6 @@ import { CustomTable } from '../../components/CustomTable';
 import { Pagination } from '../../components/Pagination';
 import { Link } from 'react-router-dom';
 
-const rowsCount = 10;
-const columnsCount = 5;
-
 export const AppContent = observer(() => {
     const {
         tableData,
@@ -30,8 +27,8 @@ export const AppContent = observer(() => {
                         headers={tableHeaders}
                         data={tableData}
                         uniqueValueFieldName='url'
-                        rowsCount={rowsCount}
-                        columnsCount={columnsCount}
+                        rowsCount={Number(process.env.REACT_APP_ROWS_COUNT)}
+                        columnsCount={Number(process.env.REACT_APP_COLUMNS_COUNT)}
                     />
                     <Pagination
                         currentPage={currentPage}

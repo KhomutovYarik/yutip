@@ -48,7 +48,7 @@ class TableDataStore<T extends INumberedTableRow> {
         try {
             this.isLoading = true;
 
-            const response = await fetch(`https://swapi.dev/api/people/?page=${pageNumber}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}?page=${pageNumber}`);
             const parsedJson: ISWapiResponse<T> = await response.json();
 
             runInAction(() => {

@@ -8,7 +8,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        <BrowserRouter>
+        <BrowserRouter
+            basename={process.env.NODE_ENV === 'development' ? '/' : process.env.REACT_APP_PUBLIC_URL}
+        >
             <App />
         </BrowserRouter>
     </React.StrictMode>

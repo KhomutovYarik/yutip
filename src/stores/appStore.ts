@@ -10,7 +10,9 @@ const appStore = new TableDataStore<ICharacterRow>(
         { text: 'Пол', fieldName: 'gender' },
         { text: 'Год рождения', fieldName: 'birth_year' },
         { text: 'Рост', fieldName: 'height' }
-    ]
+    ],
+    Number(process.env.REACT_APP_ROWS_COUNT),
+    Number(process.env.REACT_APP_COLUMNS_COUNT)
 );
 
 export { appStore };
