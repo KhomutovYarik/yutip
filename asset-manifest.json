@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/yutip/static/css/main.43d7862f.css",
+    "main.js": "/yutip/static/js/main.c1c0cd9d.js",
+    "index.html": "/yutip/index.html",
+    "main.43d7862f.css.map": "/yutip/static/css/main.43d7862f.css.map",
+    "main.c1c0cd9d.js.map": "/yutip/static/js/main.c1c0cd9d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.43d7862f.css",
+    "static/js/main.c1c0cd9d.js"
+  ]
+}
