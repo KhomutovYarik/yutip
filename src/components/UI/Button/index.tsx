@@ -5,10 +5,11 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     label: string
 }
 
-export function Button({ label, ...props }: IButtonProps) {
+export function Button({ label, type, ...props }: IButtonProps) {
     return (
         <button
             className={styles['button']}
+            type={type ?? 'button'}
             {...props}
         >
             {label}

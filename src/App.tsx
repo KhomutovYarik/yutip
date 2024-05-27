@@ -1,9 +1,14 @@
-import { AppContent } from './components/AppContent';
+import { AppContent } from './pages/AppContent';
+import { NewRowForm } from './pages/NewRowForm';
+import { Routes, Route } from 'react-router-dom';
 import './styles/globals.scss';
 
 function App() {
     return (
-        <AppContent />
+        <Routes>
+            <Route path='/' element={<AppContent />} />
+            <Route path='/add-row' element={<NewRowForm />} />
+        </Routes>
     )
 }
 

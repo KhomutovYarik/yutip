@@ -1,10 +1,11 @@
 import { Button } from '../../components/UI/Button';
 import styles from './AppContent.module.scss';
-import { PreloaderModal } from '../Modals/PreloaderModal';
+import { PreloaderModal } from '../../components/Modals/PreloaderModal';
 import { appStore } from '../../stores/appStore';
 import { observer } from 'mobx-react-lite';
-import { CustomTable } from '../CustomTable';
-import { Pagination } from '../Pagination';
+import { CustomTable } from '../../components/CustomTable';
+import { Pagination } from '../../components/Pagination';
+import { Link } from 'react-router-dom';
 
 const rowsCount = 10;
 const columnsCount = 5;
@@ -22,9 +23,9 @@ export const AppContent = observer(() => {
 
     return (
         <section className={styles['app-content']}>
-            <div className={styles['app-content__wrapper']}>
+            <div className={styles['wrapper']}>
                 <h1>Персонажи "Звёздных войн"</h1>
-                <div className={styles['app-content__table-with-pagination']}>
+                <div className={styles['table-with-pagination']}>
                     <CustomTable
                         headers={tableHeaders}
                         data={tableData}
@@ -37,7 +38,12 @@ export const AppContent = observer(() => {
                         totalPages={totalPages}
                     />
                 </div>
-                <div className={styles['app-content__footer-buttons']}>
+                <div className={styles['footer-buttons']}>
+                    <Link to='/add-row'>
+                        <Button
+                            label='Добавить запись'
+                        />
+                    </Link>
                     <Button
                         label='Загрузить данные'
                         onClick={() => getTableData()}

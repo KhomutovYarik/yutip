@@ -18,7 +18,6 @@ class TableDataStore<T extends INumberedTableRow> {
     totalPages: number = 1;
     isLoading = false;
 
-
     constructor(headers: ICustomTableHeader<T>[], rowsCount: number = 10, columnsCount: number = 5) {
         makeAutoObservable(this);
         this.rowsCount = rowsCount;
@@ -95,6 +94,11 @@ class TableDataStore<T extends INumberedTableRow> {
         });
     }
 
+    addElement = (newElement: T) => {
+        newElement[numberedFieldName] = this.tableData.length + 1;
+        this.tableData.push(newElement);
+    }
+
     removeElement = (elementIndex: number) => {
         this.tableData = this.tableData.filter((_, index) => index !== elementIndex);
     }
@@ -110,7 +114,9 @@ class TableDataStore<T extends INumberedTableRow> {
 
     private decorateTableData = () => {
         const slicedData = this.tableData.slice(0, this.rowsCount);
-        slicedData.forEach((element, index) => element[numberedFieldName] = index + 1 + (this.currentPage - 1) * this.rowsCount);
+        slicedData.forEach((element, index) => {
+            element[numberedFieldName] = index + 1 + (this.currentPage - 1) * this.rowsCount;
+        });
 
         this.tableData = slicedData;
     }
