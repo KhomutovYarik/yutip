@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/yutip/static/css/main.43d7862f.css",
-    "main.js": "/yutip/static/js/main.c1c0cd9d.js",
+    "main.css": "/yutip/static/css/main.60064c9a.css",
+    "main.js": "/yutip/static/js/main.ff8d5878.js",
     "index.html": "/yutip/index.html",
-    "main.43d7862f.css.map": "/yutip/static/css/main.43d7862f.css.map",
-    "main.c1c0cd9d.js.map": "/yutip/static/js/main.c1c0cd9d.js.map"
+    "main.60064c9a.css.map": "/yutip/static/css/main.60064c9a.css.map",
+    "main.ff8d5878.js.map": "/yutip/static/js/main.ff8d5878.js.map"
   },
   "entrypoints": [
-    "static/css/main.43d7862f.css",
-    "static/js/main.c1c0cd9d.js"
+    "static/css/main.60064c9a.css",
+    "static/js/main.ff8d5878.js"
   ]
 }
